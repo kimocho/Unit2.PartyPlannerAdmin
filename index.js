@@ -1,6 +1,6 @@
 // === Constants ===
 const BASE = "https://fsa-crud-2aa9294fe819.herokuapp.com/api";
-const COHORT = ""; // Make sure to change this!
+const COHORT = "2505-sam"; // Make sure to change this!
 const API = BASE + COHORT;
 
 // === State ===
@@ -8,6 +8,25 @@ let parties = [];
 let selectedParty;
 let rsvps = [];
 let guests = [];
+
+
+const deleteApi = async () => {
+  try {
+    const response = await fetch(API, { method: 'DELETE' });
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+const postApi = async (userInputDate) => {
+  try {
+    const isoDate = new Date(userInputDate).toISOString();
+    const response = await fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ 'date': isoDate }) });
+    const x = response.json();
+  } catch (e) {
+    console.error(e);
+  }
+}
 
 /** Updates state with all parties from the API */
 async function getParties() {
